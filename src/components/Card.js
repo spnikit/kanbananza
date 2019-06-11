@@ -4,12 +4,12 @@ class Card extends Component {
   state = { showOptions: false };
 
   toggleOptions = () => {
-    this.setState((prevState) => {
+    this.setState(prevState => {
       return { ...prevState, showOptions: !prevState.showOptions };
     });
   };
 
-  handleChange = (event) => {
+  handleChange = event => {
     const newListId = event.target.value;
     const { card } = this.props;
 
@@ -37,7 +37,7 @@ class Card extends Component {
               onChange={this.handleChange}
               value={list.id}
             >
-              {lists.map((list) => (
+              {lists.map(list => (
                 <option value={list.id} key={list.id}>
                   {list.title}
                 </option>
