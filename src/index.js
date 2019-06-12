@@ -5,4 +5,9 @@ import Application from './components/Application';
 
 import './index.scss';
 
-ReactDOM.render(<Application />, document.getElementById('root'));
+ReactDOM.render(
+  <React.StrictMode>
+    <Application />
+  </React.StrictMode>,
+  document.getElementById('root'),
+);

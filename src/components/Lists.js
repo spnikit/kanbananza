@@ -1,7 +1,7 @@
 import React from 'react';
 import List from './List';
 
-const Lists = ({ lists = [], onRemoveList, onRemoveCard }) => {
+const Lists = ({ lists = [], onRemoveList, onRemoveCard, onCreateCard }) => {
   return (
     <section className="Lists">
       {lists.map(list => (
@@ -10,6 +10,7 @@ const Lists = ({ lists = [], onRemoveList, onRemoveCard }) => {
           list={list}
           onRemoveList={onRemoveList}
           onRemoveCard={onRemoveCard}
+          onCreateCard={onCreateCard}
         />
       ))}
     </section>

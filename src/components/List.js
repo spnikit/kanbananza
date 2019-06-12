@@ -12,7 +12,9 @@ class List extends Component {
     }));
   };
 
-  createCard = () => {};
+  createCard = card => {
+    this.props.onCreateCard(this.props.list.id, card);
+  };
 
   removeList = () => {
     const { onRemoveList, list } = this.props;
@@ -46,7 +48,7 @@ class List extends Component {
               key={card.id}
               card={card}
               onRemoveCard={onRemoveCard}
-              list={list}
+              listId={list.id}
             />
           ))}
         </div>
