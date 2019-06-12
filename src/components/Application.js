@@ -1,12 +1,55 @@
 import React, { Component } from 'react';
 import CreateList from './CreateList';
 import Lists from './Lists';
+import Users from './Users';
 
 import defaultState from '../default-state.json';
 
 class Application extends Component {
   state = {
     lists: defaultState.lists,
+    users: defaultState.users,
+  };
+
+  assignCard = (cardId, userId) => {
+    let { lists } = this.state;
+
+    lists = lists.map(list => {
+      if (!list.cards.some(card => card.id === cardId)) return list;
+
+      const cards = list.cards.map(card => {
+        if (card.id !== cardId) return { ...card, assignedTo: '' };
+
+        return { ...card, assignedTo: userId };
+      });
+
+      return { ...list, cards };
+    });
+
+    this.setState({ lists });
+  };
+
+  createUser = ({ name, email }) => {
+    let { users } = this.state;
+
+    users = [
+      ...users,
+      {
+        id: Date.now().toString(),
+        name,
+        email,
+      },
+    ];
+
+    this.setState({ users });
+  };
+
+  updateUser = updatedUser => {
+    let { users } = this.state;
+    users = users.map(user =>
+      user.id === updatedUser.id ? updatedUser : user,
+    );
+    this.setState({ users });
   };
 
   createList = ({ title }) => {
@@ -86,18 +129,24 @@ class Application extends Component {
   };
 
   render() {
-    const { lists } = this.state;
+    const { lists, users } = this.state;
     return (
       <main className="Application">
-        <div>{/* Users will go here! */}</div>
+        <Users
+          users={users}
+          onCreateUser={this.createUser}
+          onUpdateUser={this.updateUser}
+        />
         <section>
           <CreateList onCreateList={this.createList} />
           <Lists
             lists={lists}
+            users={users}
             onRemoveList={this.removeList}
             onRemoveCard={this.removeCard}
             onCreateCard={this.createCard}
             onMoveCardToList={this.moveCardToList}
+            onAssignCard={this.assignCard}
           />
         </section>
       </main>

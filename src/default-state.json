@@ -38,5 +38,9 @@
       "id": "1558196570597",
       "title": "Done"
     }
+  ],
+  "users": [
+    { "id": 1, "name": "spnikit", "email": "spnikit@gmail.com" },
+    { "id": 2, "name": "Pedro", "email": "pedro@mail.ru" }
   ]
 }

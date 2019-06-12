@@ -22,7 +22,14 @@ class List extends Component {
   };
 
   render() {
-    const { list = {}, onRemoveCard, lists, onMoveCardToList } = this.props;
+    const {
+      list = {},
+      lists,
+      users,
+      onRemoveCard,
+      onMoveCardToList,
+      onAssignCard,
+    } = this.props;
     const { showOptions } = this.state;
 
     return (
@@ -47,10 +54,12 @@ class List extends Component {
             <Card
               key={card.id}
               lists={lists}
+              listId={list.id}
+              users={users}
               card={card}
+              onAssignCard={onAssignCard}
               onRemoveCard={onRemoveCard}
               onMoveCardToList={onMoveCardToList}
-              listId={list.id}
             />
           ))}
         </div>
