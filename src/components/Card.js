@@ -11,9 +11,9 @@ class Card extends Component {
 
   handleChange = event => {
     const newListId = event.target.value;
-    const { card } = this.props;
+    const { card, onMoveCardToList: onListChange } = this.props;
 
-    this.props.onListChange(card, newListId);
+    onListChange(card, newListId);
   };
 
   render() {

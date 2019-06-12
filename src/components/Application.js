@@ -22,37 +22,27 @@ class Application extends Component {
     });
   };
 
-  createCard = (listId, card) => {
-    // let listCopy = { ...this.state.lists.find(list => list.id === listId) };
-    // let cardsCopy = [...listCopy.cards];
-    // let newCard = {
-    //   id: Date.now().toString(),
-    //   title: card.title,
-    //   description: card.description,
-    // };
-    // listCopy.cards = [...listCopy.cards, newCard];
+  createCard = (listId, { title, description }) => {
+    let { lists } = this.state;
 
-    // this.setState({
-    //   lists: [...this.state.lists, listCopy],
-    // });
+    const newCard = {
+      id: Date.now().toString(),
+      title,
+      description,
+    };
+
+    lists = lists.map(listElem => {
+      if (listElem.id === listId) {
+        return {
+          ...listElem,
+          cards: [...listElem.cards, newCard],
+        };
+      }
+      return listElem;
+    });
 
     this.setState({
-      lists: this.state.lists.map(listElem => {
-        if (listElem.id === listId) {
-          return {
-            ...listElem,
-            cards: [
-              ...listElem.cards,
-              {
-                id: Date.now().toString(),
-                title: card.title,
-                description: card.description,
-              },
-            ],
-          };
-        }
-        return listElem;
-      }),
+      lists,
     });
   };
   removeList = listId => {
@@ -75,6 +65,26 @@ class Application extends Component {
     });
   };
 
+  moveCardToList = (card, newListId) => {
+    let { lists } = this.state;
+
+    lists = lists.map(list => {
+      let newCards;
+
+      if (list.id === newListId) {
+        newCards = [...list.cards, card];
+      } else {
+        newCards = list.cards.filter(cardElem => cardElem.id !== card.id);
+      }
+
+      return { ...list, cards: newCards };
+    });
+
+    this.setState({
+      lists,
+    });
+  };
+
   render() {
     const { lists } = this.state;
     return (
@@ -87,6 +97,7 @@ class Application extends Component {
             onRemoveList={this.removeList}
             onRemoveCard={this.removeCard}
             onCreateCard={this.createCard}
+            onMoveCardToList={this.moveCardToList}
           />
         </section>
       </main>
