@@ -21,7 +21,6 @@ class Card extends Component {
     const {
       card = {},
       lists = [],
-      users,
       listId,
       onRemoveCard = () => {},
       onAssignCard,
@@ -47,11 +46,7 @@ class Card extends Component {
                 </option>
               ))}
             </select>
-            <CardAssignment
-              card={card}
-              users={users}
-              onAssignCard={onAssignCard}
-            />
+            <CardAssignment card={card} onAssignCard={onAssignCard} />
             <button onClick={removeCard} className="Card-remove danger">
               Remove Card
             </button>

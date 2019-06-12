@@ -3,12 +3,12 @@ import CreateList from './CreateList';
 import Lists from './Lists';
 import Users from './Users';
 
-import defaultState from '../default-state.json';
+import { lists, users } from '../default-state.json';
 
 class Application extends Component {
   state = {
-    lists: defaultState.lists,
-    users: defaultState.users,
+    lists,
+    users,
   };
 
   assignCard = (cardId, userId) => {
@@ -27,29 +27,6 @@ class Application extends Component {
     });
 
     this.setState({ lists });
-  };
-
-  createUser = ({ name, email }) => {
-    let { users } = this.state;
-
-    users = [
-      ...users,
-      {
-        id: Date.now().toString(),
-        name,
-        email,
-      },
-    ];
-
-    this.setState({ users });
-  };
-
-  updateUser = updatedUser => {
-    let { users } = this.state;
-    users = users.map(user =>
-      user.id === updatedUser.id ? updatedUser : user,
-    );
-    this.setState({ users });
   };
 
   createList = ({ title }) => {
@@ -129,19 +106,14 @@ class Application extends Component {
   };
 
   render() {
-    const { lists, users } = this.state;
+    const { lists } = this.state;
     return (
       <main className="Application">
-        <Users
-          users={users}
-          onCreateUser={this.createUser}
-          onUpdateUser={this.updateUser}
-        />
+        <Users />
         <section>
           <CreateList onCreateList={this.createList} />
           <Lists
             lists={lists}
-            users={users}
             onRemoveList={this.removeList}
             onRemoveCard={this.removeCard}
             onCreateCard={this.createCard}
